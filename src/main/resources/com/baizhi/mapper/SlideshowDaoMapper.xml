@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.SlideshowDao">
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(id) from slideshow
+        <where>
+            <if test="searchOper=='eq'">
+                ${searchField}=#{searchString}
+            </if>
+            <if test="searchOper=='ne'">
+                ${searchField} !=#{searchString}
+            </if>
+            <if test="searchOper=='cn'">
+                ${searchField} like concat('%',#{searchString},'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="findBySearch" resultType="Slideshow">
+        select id,name,path,introduction,href,status FROM slideshow
+        <where>
+            <if test="searchOper=='eq'">
+                ${searchField}=#{searchString}
+            </if>
+            <if test="searchOper=='ne'">
+                ${searchField} !=#{searchString}
+            </if>
+            <if test="searchOper=='cn'">
+                ${searchField} like concat('%',#{searchString},'%')
+            </if>
+        </where>
+        limit #{page},#{rows}
+    </select>
+
+
+</mapper>

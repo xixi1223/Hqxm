@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.UserDao">
+    <select id="queryBySex" resultType="java.lang.Integer">
+        select count(id)
+        from user where sex=#{sex} and DATE_SUB(NOW(),INTERVAL #{day} DAY) &lt; createdate
+    </select>
+    <select id="queryAddress" resultType="MapOV">
+        select address as name ,count(*) as 'value'
+        from user GROUP BY address
+    </select>
+
+
+</mapper>
